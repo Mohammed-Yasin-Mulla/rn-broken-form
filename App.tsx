@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { SafeAreaView, StyleSheet, TextInput } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, View, Text } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -31,7 +31,7 @@ export default function App() {
         degree = 15;
         break;
       default:
-        degree = 0;
+        degree = 5;
         break;
     }
 
@@ -68,7 +68,7 @@ export default function App() {
         degree = 25;
         break;
       default:
-        degree = 0;
+        degree = 8;
         break;
     }
 
@@ -117,46 +117,76 @@ export default function App() {
   });
 
   return (
-    <SafeAreaView>
-      <StatusBar style="auto" />
-      <Animated.View
-        style={[
-          {
-            transformOrigin: "right center",
-          },
-          animateUselessText,
-        ]}
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="dark" />
+      <View
+        style={{
+          gap: 40,
+          marginTop: 200,
+        }}
       >
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => {
-            onChangeText(text);
-            wordCount.value = text.length;
-          }}
-          placeholder="useless placeholder"
-          value={text}
-        />
-      </Animated.View>
-      <Animated.View style={[animateFallNumber]}>
-        <AnimatedTextInput
+        <Animated.View
           style={[
             {
-              transformOrigin: "left center",
-              paddingLeft: "auto",
-              paddingRight: 0,
+              transformOrigin: "right center",
+              zIndex: 2,
             },
-            styles.input,
-            animateUselessNumber,
+            animateUselessText,
           ]}
-          onChangeText={(number) => {
-            onChangeNumber(number);
-            numCount.value = number.length;
+        >
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => {
+              onChangeText(text);
+              wordCount.value = text.length;
+            }}
+            placeholder="useless placeholder"
+            value={text}
+          />
+        </Animated.View>
+        <Animated.View style={[animateFallNumber]}>
+          <AnimatedTextInput
+            style={[
+              {
+                transformOrigin: "left center",
+                paddingLeft: "auto",
+                paddingRight: 0,
+              },
+              styles.input,
+              animateUselessNumber,
+            ]}
+            onChangeText={(number) => {
+              onChangeNumber(number);
+              numCount.value = number.length;
+            }}
+            value={number}
+            placeholder="useless placeholder"
+            keyboardType="numeric"
+          />
+        </Animated.View>
+      </View>
+      <View
+        style={{
+          marginTop: 80,
+          backgroundColor: "crimson",
+          padding: 10,
+          borderRadius: 20,
+          width: 200,
+          height: 50,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 16,
           }}
-          value={number}
-          placeholder="useless placeholder"
-          keyboardType="numeric" 
-        />
-      </Animated.View>
+        >
+          Submit
+        </Text>
+      </View>
     </SafeAreaView>
   );
 }
@@ -164,14 +194,22 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#dcdcdc",
     alignItems: "center",
-    justifyContent: "center",
   },
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+    height: 50,
+    width: 300,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
     padding: 10,
+    backgroundColor: "white",
+    borderRadius: 8,
   },
 });
